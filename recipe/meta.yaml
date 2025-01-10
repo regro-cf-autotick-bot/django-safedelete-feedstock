@@ -7,21 +7,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/django-safedelete-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/django-safedelete-{{ version }}.tar.gz
   sha256: 27ce5f92d7f4c6adab67c085420aa8c2a8e6751a7fb4a1c0afa70547ddeb2d7d
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - django
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   commands:
@@ -30,6 +30,7 @@ test:
     - python -c "from django.conf import settings;settings.configure();import safedelete"
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/makinacorpus/django-safedelete
